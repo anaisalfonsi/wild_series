@@ -1,0 +1,3 @@
+# WILD SERIES PROJECT
+
+Welcome !
