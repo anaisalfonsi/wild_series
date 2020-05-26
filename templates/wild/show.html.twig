@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if slug is empty %}
+        <h1>Error ! Please select a Tv Show</h1>
+    {% endif %}
+<div>
+    <h1>{{ title }}</h1>
+</div>
+{% endblock %}
