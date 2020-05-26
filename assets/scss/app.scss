@@ -1,8 +1,28 @@
-$color-head: aquamarine;
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+$white: white;
+$pink: #FFB4DE;
+$fuschia: #FF00FE;
+$violet: #B000FD;
+$purple: #9900FE;
+$indigo: #4000FD;
+$blue: #0005FC;
+$black: #0E0E0E;
+
+$theme-colors: (
+        "pink": $pink, "fuschia": $fuschia, "violet": $violet, "purple": $purple, "indigo": $indigo, "blue": $blue, "black": $black
+);
 
 body {
-  background-color: #8959A8;
+  .btn {
+    color: $fuschia;
+    border-color: $fuschia;
+  }
+}
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
   h1 {
-    color: $color-head;
+    color: $black;
   }
 }

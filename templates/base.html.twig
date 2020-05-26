@@ -2,23 +2,23 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
+        <title>{% block title %}🍿 wILD SerIES{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
-
-            <!-- Renders a link tag (if your module requires any CSS)
-                 <link rel="stylesheet" href="/build/app.css"> -->
-        {% endblock %}
+            <!-- Renders a link tag (if your module requires any CSS)-->
+                 <link rel="stylesheet" href="/build/app.css">
     </head>
+    <header>
+    {% include 'navbar.html.twig' %}
+    </header>
     <body>
-        {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-
-            <!-- Renders app.js & a webpack runtime.js file
+            <!-- Renders app.js & a webpack runtime.js file-->
                 <script src="/build/runtime.js"></script>
-                <script src="/build/app.js"></script> -->
+                <script src="/build/app.js"></script>
         {% endblock %}
     </body>
 </html>
