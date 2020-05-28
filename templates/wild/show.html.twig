@@ -1,10 +1,17 @@
 {% extends 'base.html.twig' %}
+{% block title %}{{ slug }}{% endblock %}
 
 {% block body %}
-    {% if slug is empty %}
-        <h1>Error ! Please select a Tv Show</h1>
-    {% endif %}
-<div>
-    <h1>{{ title }}</h1>
-</div>
+    <div class="media">
+        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+        <div class="media-body">
+            <h1 class="mt-0">{{ program.title }}</h1>
+            <p>{{ program.summary }}</p>
+            <p>Catégorie : {{ program.category.name }}</p>
+        </div>
+    </div>
+
+    <a href="{{ path('wild_index') }}">
+        Retour à l'accueil
+    </a>
 {% endblock %}
