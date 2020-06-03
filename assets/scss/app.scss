@@ -14,15 +14,28 @@ $theme-colors: (
 
 body {
   .btn {
-    color: $fuschia;
-    border-color: $fuschia;
+    color: $blue;
+    border-color: $blue;
+  }
+  .btn:hover {
+    color: $white;
+    background-color: $blue;
+    border-color: $blue;
+  }
+  a {
+    color: $pink;
+  }
+  a:hover {
+    color: $white;
+    text-decoration: none;
   }
 }
 
 @import "~bootstrap/scss/bootstrap";
 
 body {
-  h1 {
-    color: $black;
+  background-color: $black;
+  h1, h2, h3, h4 {
+    color: $pink;
   }
 }

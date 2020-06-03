@@ -3,7 +3,7 @@
 {% block body %}
     <div class="container col-md-10 col-lg-10 col-sm-12">
         <div class="row d-flex justify-content-center mt-5 mb-2">
-            <h4 class="shopTitle mb-4 shopTitle">🍬🔪🕯 {#{{ loop.index }}#}TV Shows 🕯🔫🍬</h4>
+            <h4 class="mt-4 mb-5">🍬🔪🕯 TV Shows 🕯🔫🍬</h4>
         </div>
         <div class="row justify-content-center">
             {% for program in programs %}
@@ -14,7 +14,7 @@
                             <h5 class="card-title mt-4 mb-1"> {{ program.title }} </h5>
                             <p class="paragShop mb-2"> Category: {{ program.category.name }}</p>
                             <p class="card-text mt-3 mb-4"> {{ program.summary }} </p>
-                            <a href="{#/wild/show/{{ slug }}#}" type="submit" name="" value="{{ program.id }}" class="btn bg-black mt-auto">See More</a>
+                            <a href="/wild/show/{{ slug }}" type="submit" name="" value="" class="btn bg-black mt-auto">See More</a>
                         </div>
                     </div>
                 </div>

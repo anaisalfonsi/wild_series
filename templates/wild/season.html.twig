@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{#{% block title %}{{ slug }}{% endblock %}#}
+
+{% block body %}
+    <div class="media">
+        <div class="media-body">
+            <h2 class="mt-4">👁‍🗨 {{ program.title }}</h2>
+            <h3 class="mt-4 mb-3 text-white">🍬🔪🕯 Season {{ season.number }} 🕯🔫🍬</h3>
+            <img class="card-img" src="{{ season.photo }}" alt="img">
+            <p class="m-5 text-white">{{ season.description }}</p>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-start">
+        <div class="card shopping-cart">
+            <div class="card-header text-right">
+                <h3 class=""><span class="text-black">🍬🔪🕯 Episodes 🕯🔫🍬</span></h3>
+            </div>
+            {% for episode in episodes %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3 text-center">
+                            <img class="card-img" src="{{ season.photo }}" alt="img">
+                        </div>
+                        <div class="col-1">
+                            <h5 class="text-black">
+                                <large>{{ episode.number }}</large>
+                            </h5>
+                        </div>
+                        <div class="col-6">
+                            <h6 class="text-pink"><large>{{ episode.title }}</large></h6>
+                            <h6 class="text-black">
+                                <small class="">{{ episode.synopsis }}</small>
+                            </h6>
+                        </div>
+                        <div class="col-2">
+                            <a href="{#/wild/season/{{ season.id }}#}" name="" value="" class="btn mt-5"><small>See More</small></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center mt-4 mb-4">
+        <a href="{{ path('app_index') }}">
+            Back to Home.
+        </a>
+    </div>
+{% endblock %}

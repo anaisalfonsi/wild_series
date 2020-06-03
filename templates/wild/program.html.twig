@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ slug }}{% endblock %}
+
+{% block body %}
+<div class="media mr-5 ml-5">
+    <img class="align-self-start col-3 mr-3 mt-5" src="{{program.poster}}" alt="{{ program.title }} poster">
+    <div class="media-body">
+        <h2 class="mt-5 text-pink m-4">👁‍🗨 {{ program.title }}</h2>
+        <p class="text-white m-4">Catégorie : <large class="text-pink">{{ program.category.name }}</large></p>
+        <p class="text-white m-4 mr-5 mb-5">{{ program.summary }}</p>
+        <div class="mr-5">
+            <div class="container-fluid">
+                <div class="card shopping-cart">
+                    <div class="card-header text-right">
+                        <h3 class=""><span class="text-black">🍬🔪🕯 Seasons 🕯🔫🍬</span></h3>
+                    </div>
+                    {% for season in seasons %}
+                        <div class="card-body bg-black">
+                            <h5 class="text-white mb-3">Season <large class="text-pink">{{ season.number }}</large></h5>
+                            <div class="row">
+                                <div class="col-3 text-center">
+                                    <img class="card-img" src="{{ season.photo }}" alt="img" height="100px">
+                                </div>
+                                <div class="col-1">
+                                    <h6 class="text-pink">
+                                        <large>{{ season.year }}</large>
+                                    </h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6 class="text-pink"><large>Synopsis</large></h6>
+                                    <h6 class="text-white">
+                                        <small class="">{{ season.description }}</small>
+                                    </h6>
+                                </div>
+                                <div class="col-2">
+                                    <a href="/wild/season/{{ season.id }}" name="" value="" class="btn mt-5 text-white border-white"><small>See Episodes</small></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
