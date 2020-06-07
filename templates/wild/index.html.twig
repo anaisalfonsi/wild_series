@@ -14,16 +14,18 @@
                             <h5 class="card-title mt-4 mb-1"> {{ program.title }} </h5>
                             <p class="paragShop mb-2"> Category: {{ program.category.name }}</p>
                             <p class="card-text mt-3 mb-4"> {{ program.summary }} </p>
-                            <a href="/wild/program/{{ programSlug }}" type="submit" name="" value="" class="btn mt-auto">See More</a>
+                            <a href="/wild/program/{{ slug }}" type="submit" name="" value="" class="btn mt-auto">See More</a>
                         </div>
                     </div>
                 </div>
             {% else %}
                 No program found.
             {% endfor %}
+            <div class="container d-flex justify-content-center">
             <a href="{{ path('app_index') }}">
                 Back to Home.
             </a>
+            </div>
         </div>
     </div>
 {% endblock %}

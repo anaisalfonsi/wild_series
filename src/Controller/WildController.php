@@ -15,7 +15,7 @@ use App\Entity\Program;
 class WildController extends AbstractController
 {
     /**
-     * @Route("/index", methods={"GET"}, name="index")
+     * @Route("/index", name="index")
      */
     public function index()
     {
@@ -33,14 +33,14 @@ class WildController extends AbstractController
                 ->getRepository(Program::class)
                 ->findOneBy(['id' => $id]);*/
             $programTitle = $key->getTitle();
-            $programSlug = preg_replace(
+            $slug = preg_replace(
                 '/ /',
                 '-', mb_strtolower($programTitle));
         }
 
         return $this->render('wild/index.html.twig', [
             'programs' => $programs,
-            'programSlug' => $programSlug
+            'slug' => $slug
         ]);
     }
 
@@ -78,9 +78,10 @@ class WildController extends AbstractController
                 "No category with '.$categoryName.' name, found in category's table."
             );
         }
+        $id = $category->getId();
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
-            ->findBy(['category' => 1],
+            ->findBy(['category' => $id],
                 ['id' => 'desc'],
                 3);
 
