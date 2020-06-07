@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{#{% block title %}{{ slug }}{% endblock %}#}
+
+{% block body %}
+    <div class="media">
+        <img class="align-self-start mr-3" src="{{episode.photo}}" alt="{{ episode.title }} pic">
+        <div class="media-body">
+            <h2 class="mt-4 mb-3 text-white">🕯 {{ program.title }} 🕯⛓<large class="text-red"> Season <large class="text-pink">{{ season.number }}</large></large></h2>
+            <h3 class="mt-4 text-red">💉 {{ episode.title }} <small class="text-pink">- Episode {{ episode.number }}<small></small></h3>
+            <h5 class="text-pink mt-5"><large>🎀 Syn<large class="text-red">opsis 🎀</large></large></h5>
+            <p class="text-white">{{ episode.synopsis }}</p>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <a href="/wild/season/{{ season.id }}">
+            Back to Season {{ season.number }} episodes
+        </a>
+        <a href="/wild/program/{{ slug }}" class="text-red ml-4">
+            Back to {{ program.title }} page
+        </a>
+    </div>
+{% endblock %}

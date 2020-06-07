@@ -15,7 +15,7 @@ use App\Entity\Program;
 class WildController extends AbstractController
 {
     /**
-     * @Route("/index", name="index")
+     * @Route("/index", methods={"GET"}, name="index")
      */
     public function index()
     {
@@ -27,38 +27,29 @@ class WildController extends AbstractController
             throw $this->createNotFoundException("No program found in program's table.");
         }
 
+        foreach ($programs as $key) {
+            //$id = $key->getId();
+            /*$program = $this->getDoctrine()
+                ->getRepository(Program::class)
+                ->findOneBy(['id' => $id]);*/
+            $programTitle = $key->getTitle();
+            $programSlug = preg_replace(
+                '/ /',
+                '-', mb_strtolower($programTitle));
+        }
+
         return $this->render('wild/index.html.twig', [
-            'programs' => $programs
+            'programs' => $programs,
+            'programSlug' => $programSlug
         ]);
     }
 
     /**
-     * @param string $slug The slugger
-     * @Route("/show/{slug<[a-z0-9-]+>}", defaults={"slug" = null}, methods={"GET"}, name="show")
+     * @Route("/{id}", methods={"GET"}, name="show")
      */
-    public function show(string $slug)
+    public function show(Program $program)
     {
-        if (!$slug) {
-            throw $this
-            ->createNotFoundException("No slug has been sent to find a program in program's table.");
-        }
-
-        $slug = preg_replace(
-            '/-/',
-            ' ', ucwords(trim(strip_tags($slug)), "-")
-        );
-
-        $program = $this->getDoctrine()
-            ->getRepository(Program::class)
-            ->findOneBy(['title' => mb_strtolower($slug)]);
-        if (!$program) {
-            throw $this->createNotFoundException(
-                "No program with '.$slug.' title, found in program's table."
-            );
-        }
-
         return $this->render('wild/show.html.twig', [
-            'slug' => $slug,
             'program' => $program
         ]);
     }
@@ -164,6 +155,27 @@ class WildController extends AbstractController
             'program' => $program,
             'episodes' => $episodes,
             'season' => $season
+        ]);
+    }
+
+    /**
+     * @Route("/episode/{id}", name="show_episode")
+     */
+
+    public function showEpisode(Episode $episode)
+    {
+        $season = $episode->getSeason();
+        $program = $season->getProgram();
+        $programTitle = $program->getTitle();
+        $slug = preg_replace(
+            '/ /',
+            '-', mb_strtolower($programTitle));
+
+        return $this->render('wild/episode.html.twig', [
+            'episode' => $episode,
+            'season' => $season,
+            'program' => $program,
+            'slug' => $slug
         ]);
     }
 }

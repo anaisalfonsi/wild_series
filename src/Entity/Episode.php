@@ -38,6 +38,11 @@ class Episode
      */
     private $synopsis;
 
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $photo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class Episode
     public function setSynopsis(?string $synopsis): self
     {
         $this->synopsis = $synopsis;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }
