@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Program index{% endblock %}
+
+{% block body %}
+    <h1 class="text-white mt-4 ml-4">Program index</h1>
+    <div class="container d-flex justify-content-end">
+        <a href="{{ path('program_new') }}" class="btn border-blue text-pink mt-4 mb-4">Create new</a>
+    </div>
+    </div>
+    <div class="container-fluid">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-1">Id</th>
+                    <th class="col-3">Title</th>
+                    <th class="col-4">Summary</th>
+                    <th class="col-1">Poster</th>
+                    <th class="col-2">actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for program in programs %}
+                <tr>
+                    <td class="text-center">{{ program.id }}</td>
+                    <td>{{ program.title }}</td>
+                    <td><p class="mt-3">{{ program.summary }}</p></td>
+                    <td><img src="{{ program.poster }}" height="100px" width="80px"></td>
+                    <td class="text-center">
+                        <a href="{{ path('program_show', {'id': program.id}) }}" class="btn text-white">show</a>
+                        <a href="{{ path('program_edit', {'id': program.id}) }}" class="btn text-pink">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
