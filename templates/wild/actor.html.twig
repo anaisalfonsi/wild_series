@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <h2 class="text-center text-red m-4">{{ actor.name}}</h2>
+            <img src="{{ actor.photo }}" alt="actor photo">
+            <div class="card-body">
+                <hr class="my-4">
+                {% for program in programs %}
+                <div class="container">
+                    <h4 class="mb-2 mt-3">{{ program.title }}</h4>
+                    <a href="/wild/{{ program.id }}">
+                        <img src="{{ program.poster }}" height="200" width="150">
+                    </a>
+                {% else %}
+                    <li>Aucun acteur pour cette série</li>
+                </div>
+                {% endfor %}
+                <p></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

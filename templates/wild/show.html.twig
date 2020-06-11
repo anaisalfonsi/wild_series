@@ -10,7 +10,16 @@
             <p>Catégorie : {{ program.category.name }}</p>
         </div>
     </div>
-
+    <div class="card text-black mt-4">
+        <h4 class="mt-4 text-red"><strong>Actors :</strong></h4>
+    <ul>
+        {% for actor in program.actors %}
+            <a href="/wild/actor/{{ actor.id }}"><li>{{ actor.name }}</li></a>
+        {% else %}
+            <li>Aucun acteur pour cette série</li>
+        {% endfor %}
+    </ul>
+    </div>
     <a href="{{ path('wild_index') }}">
         Retour à l'accueil
     </a>
