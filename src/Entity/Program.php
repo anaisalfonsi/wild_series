@@ -167,7 +167,7 @@ class Program
 
     public function removeActor(Actor $actor): self
     {
-        if ($this->actors->contains($actor)) {
+        if (!$this->actors->contains($actor)) {
             $this->actors->removeElement($actor);
             $actor->removeProgram($this);
         }

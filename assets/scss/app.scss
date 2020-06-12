@@ -36,7 +36,14 @@ body {
 
 body {
   background-color: $black;
-  h1, h2, h3, h4 {
-    color: $pink;
+  h1, h2, h3 {
+    background: -webkit-linear-gradient($red, 80%, $pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h4, h5, h6 {
+    background: -webkit-linear-gradient($pink, 40%, $red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
