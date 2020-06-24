@@ -7,7 +7,6 @@ use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Faker;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {

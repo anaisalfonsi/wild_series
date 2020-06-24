@@ -9,7 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker;
 
-
 class EpisodeFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
