@@ -30,7 +30,8 @@ class Actor
     private $photo;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Program::class, inversedBy="actors")
+     * @ORM\ManyToMany(targetEntity=Program::class, inversedBy="actors", cascade={"persist"})
+     *
      */
     private $programs;
 
