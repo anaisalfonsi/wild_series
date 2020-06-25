@@ -28,31 +28,20 @@ class WildController extends AbstractController
             throw $this->createNotFoundException("No program found in program's table.");
         }
 
-        foreach ($programs as $key) {
-            //$id = $key->getId();
-            /*$program = $this->getDoctrine()
-                ->getRepository(Program::class)
-                ->findOneBy(['id' => $id]);*/
-            $programTitle = $key->getTitle();
-            $slug = preg_replace(
-                '/ /',
-                '-', mb_strtolower($programTitle));
-        }
-
         return $this->render('wild/index.html.twig', [
-            'programs' => $programs,
-            'slug' => $slug
+            'programs' => $programs
         ]);
     }
 
     /**
-     * @Route("/{id}", methods={"GET"}, name="show")
+     * @Route("/{slug}", methods={"GET"}, name="show")
      */
     public function show(Program $program)
     {
         $actors = $program->getActors();
         return $this->render('wild/show.html.twig', [
-            'program' => $program
+            'program' => $program,
+            'actors' => $actors
         ]);
     }
 
@@ -95,7 +84,7 @@ class WildController extends AbstractController
 
     /**
      * @param string $slug
-     * @Route("/program/{slug<[a-z0-9-]+>}", defaults={"slug" = null}, methods={"GET"}, name="show_program")
+     * @Route("/program/{slug}", methods={"GET"}, name="show_program")
      */
     public function showByProgram(string $slug)
     {
@@ -114,7 +103,7 @@ class WildController extends AbstractController
             ->findOneBy(['title' => mb_strtolower($slug)]);
         if (!$program) {
             throw $this->createNotFoundException(
-                "No program with '.$slug.' title, found in program's table."
+                "No program with ".$slug." title, found in program's table."
             );
         }
         $programId = $program->getId();
@@ -162,7 +151,7 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/episode/{id}", name="show_episode")
+     * @Route("/episode/{slug}", name="show_episode")
      */
     public function showEpisode(Episode $episode)
     {
@@ -182,14 +171,10 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/actor/{id}", name="show_actor")
+     * @Route("/actor/{slug}", name="show_actor")
      */
-    public function showActor(int $id)
+    public function showActor(Actor $actor)
     {
-        $actor = $this->getDoctrine()
-            ->getRepository(Actor::class)
-            ->findOneBy(['id' => ($id)]);
-
         $programs = $actor->getPrograms();
 
         return $this->render('wild/actor.html.twig', [

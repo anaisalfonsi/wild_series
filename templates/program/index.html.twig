@@ -27,8 +27,8 @@
                     <td><p class="mt-3">{{ program.summary }}</p></td>
                     <td><img src="{{ program.poster }}" height="100px" width="80px"></td>
                     <td class="text-center">
-                        <a href="{{ path('program_show', {'id': program.id}) }}" class="btn text-white">show</a>
-                        <a href="{{ path('program_edit', {'id': program.id}) }}" class="btn text-pink">edit</a>
+                        <a href="{{ path('program_show', {'slug': program.slug}) }}" class="btn text-white">show</a>
+                        <a href="{{ path('program_edit', {'slug': program.slug}) }}" class="btn text-pink">edit</a>
                     </td>
                 </tr>
             {% else %}
