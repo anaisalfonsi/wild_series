@@ -4,12 +4,29 @@
     <div class="media">
         <img class="align-self-start mr-3" src="{{episode.photo}}" alt="{{ episode.title }} pic">
         <div class="media-body">
-            <h2 class="mt-4 mb-3 text-white">🕯 {{ program.title }} 🕯⛓<large class="text-red"> Season <large class="text-pink">{{ season.number }}</large></large></h2>
+            <h2 class="mt-4 mb-3 text-dark">🕯 {{ program.title }} 🕯⛓<large class="text-red"> Season <large class="text-pink">{{ season.number }}</large></large></h2>
             <h3 class="mt-4 text-red">💉 {{ episode.title }} <small class="text-pink">- Episode {{ episode.number }}<small></small></h3>
             <h5 class="text-pink mt-5"><large>🎀 Syn<large class="text-red">opsis 🎀</large></large></h5>
-            <p class="text-white">{{ episode.synopsis }}</p>
+            <p class="text-dark">{{ episode.synopsis }}</p>
         </div>
     </div>
+    <div class="container my-4 text-dark bg-light">
+        <h4>Comments:</h4><br>
+        {% for comment in comments %}
+            <h6>{{ comment.author.firstname }}</h6>
+                <p>Rate: {{ comment.rate }}</p>
+                <p>{{ comment.comment }}</p>
+        {% endfor %}
+    </div>
+    {% if app.user %}
+        <div class="container d-flex justify-content-center">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn">{{ button_label|default('Post') }}</button>
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+
     <div class="container d-flex justify-content-center">
         <a href="/wild/season/{{ season.id }}">
             Back to Season {{ season.number }} episodes

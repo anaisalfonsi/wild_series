@@ -34,5 +34,11 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
+        {% if app.user %}
+            <div class="mx-4">{{ app.user.firstname }}</div>
+            <a href="{{ path('app_logout') }}" class="text-dark"> Sign Out</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="text-dark"> Sign In</a>
+        {% endif %}
     </div>
 </nav>

@@ -29,6 +29,7 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
             $episode->setSynopsis($faker->text);
             $episode->setPhoto($faker->imageUrl($width = 213, $height = 160));
             $manager->persist($episode);
+            $this->addReference('episode_' .$i, $episode);
         }
         $manager->flush();
     }
