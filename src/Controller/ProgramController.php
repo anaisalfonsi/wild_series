@@ -2,14 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\MailTemplate;
 use App\Entity\Program;
+use App\Entity\Dev;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
+use App\Services\MailService;
+use App\Services\MailServices;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Slugify;
+
 
 /**
  * @Route("/program")
@@ -18,6 +26,8 @@ class ProgramController extends AbstractController
 {
     /**
      * @Route("/", name="program_index", methods={"GET"})
+     * @param ProgramRepository $programRepository
+     * @return Response
      */
     public function index(ProgramRepository $programRepository): Response
     {
@@ -28,8 +38,14 @@ class ProgramController extends AbstractController
 
     /**
      * @Route("/new", name="program_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param Slugify $slugify
+     * @param MailerInterface $mailer
+     * @param MailServices $mailServices
+     * @return Response
+     * @throws TransportExceptionInterface
      */
-    public function new(Request $request, Slugify $slugify): Response
+    public function new(Request $request, Slugify $slugify, MailerInterface $mailer): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
@@ -41,6 +57,17 @@ class ProgramController extends AbstractController
             $program->setSlug($slug);
             $entityManager->persist($program);
             $entityManager->flush();
+
+            $mail = $this->getDoctrine()->getRepository(MailTemplate::class)->findOneBy(['id' => 2]);
+            $programSlug = $program->getSlug();
+
+            $email = (new Email())
+                ->from($this->getParameter('mailer_from'))
+                ->to($this->getParameter('mailer_to'))
+                ->subject($mail->getSubject())
+                ->html($this->renderView('mail/index.html.twig', [ 'mail' => $mail, 'program' => $program, 'programSlug' => $programSlug ]));
+
+            $mailer->send($email);
 
             return $this->redirectToRoute('program_index');
         }

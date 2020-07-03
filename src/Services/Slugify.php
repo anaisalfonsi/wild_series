@@ -3,8 +3,6 @@
 
 namespace App\Services;
 
-use App\Repository\ProgramRepository;
-
 class Slugify
 {
     public function generate(string $input) : string
@@ -36,6 +34,5 @@ class Slugify
         $slug = mb_strtolower($str);
 
         return $slug;
-
     }
 }
