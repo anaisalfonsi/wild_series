@@ -62,10 +62,16 @@ class Program
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $creation_date;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
         $this->actors = new ArrayCollection();
+        $this->creation_date = new \DateTime('today');
     }
 
     public function getId(): ?int
@@ -188,6 +194,18 @@ class Program
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creation_date;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creation_date): self
+    {
+        $this->creation_date = $creation_date;
 
         return $this;
     }

@@ -45,6 +45,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $slug = $slugify->generate($title);
             $program->setSlug($slug);
             $program->setSummary($data['summary']);
+            $program->setCreationDate(new \DateTime('yesterday'));
             $manager->persist($program);
             $this->addReference('program_' .$i, $program);
             $program->setCategory($this->getReference('category_' . $i));

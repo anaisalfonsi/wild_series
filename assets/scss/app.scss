@@ -18,17 +18,33 @@ body {
     color: $blue;
     border-color: $blue;
   }
-  .btn:hover {
-    color: $white;
-    background-color: $blue;
-    border-color: $blue;
-  }
+
   a {
-    color: $pink;
+    color: $black;
   }
   a:hover {
-    color: $white;
+    background: -webkit-linear-gradient($red, 80%, $pink);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
     text-decoration: none;
+  }
+
+  a, li {
+    font-size: 1.1em;
+    letter-spacing: 0.8px;
+  }
+
+  .navbar-brand {
+    background: linear-gradient(to right, $black, 60%, $pink);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    font-family: "Fjalla One";
+    font-size: 2em;
+    letter-spacing: 3px;
   }
 }
 
@@ -36,15 +52,16 @@ body {
 
 body {
   background-color: $white;
-  h1, h2, h3 {
+  h1 {
     background: -webkit-linear-gradient($red, 80%, $pink);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
   }
-  h4, h5, h6 {
-    background: -webkit-linear-gradient($pink, 40%, $red);
+
+  h5 {
+    background: linear-gradient(to right, $black, 50%, $pink);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
