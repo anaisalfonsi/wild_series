@@ -22,6 +22,19 @@ class ProgramRepository extends ServiceEntityRepository
     {
         return $this->findBy([], ['creation_date' => 'DESC']);
     }
+
+    public function findAllWithCategoriesandActors()
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->innerJoin('p.category', 'c' )
+            ->addSelect('c')
+            ->leftJoin('p.actors', 'a' )
+            ->addSelect('a')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
     // /**
     //  * @return Program[] Returns an array of Program objects
     //  */

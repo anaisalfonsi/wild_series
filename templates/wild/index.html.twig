@@ -14,7 +14,14 @@
                             <h5 class="card-title mt-4 mb-1"> {{ program.title }} </h5>
                             <p class="paragShop mb-2"> Category: {{ program.category.name }}</p>
                             <p class="card-text mt-3 mb-4"> {{ program.summary }} </p>
-                            <a href="{{ path('wild_show', {'slug': program.slug}) }}" type="submit" name="" value="" class="btn mt-auto">See More</a>
+                            {% if program.actors is empty %}
+                                <p class="text-danger">No actor is added in this program.</p>
+                            {% else %}
+                                {% for actor in program.actors %}
+                                    <p class="card-text">{{ actor.lastname }}, {{ actor.firstname }}</p>
+                                {% endfor %}
+                            {% endif %}
+                             {#<a href="{{ path('wild_show', {'slug': program.slug}) }}" type="submit" name="" value="" class="btn mt-auto">See More</a>#}
                         </div>
                     </div>
                 </div>

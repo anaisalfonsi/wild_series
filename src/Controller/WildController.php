@@ -27,7 +27,7 @@ class WildController extends AbstractController
     {
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
-            ->findAll();
+            ->findAllWithCategoriesandActors();
 
         if (!$programs) {
             throw $this->createNotFoundException("No program found in program's table.");
