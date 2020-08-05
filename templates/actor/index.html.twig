@@ -3,9 +3,12 @@
 {% block title %}Actor index{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1>Actor index</h1>
-
-    <table class="table text-light">
+    <div class="container d-flex justify-content-end">
+        <a href="{{ path('actor_new') }}" class="btn border-blue text-pink mt-4 mb-4">Create new</a>
+    </div>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -36,4 +39,5 @@
     </table>
 
     <a href="{{ path('actor_new') }}">Create new</a>
+</div>
 {% endblock %}

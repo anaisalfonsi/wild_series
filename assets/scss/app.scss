@@ -52,19 +52,12 @@ body {
 
 body {
   background-color: $white;
-  h1 {
-    background: -webkit-linear-gradient($red, 80%, $pink);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-  }
+}
 
-  h5 {
-    background: linear-gradient(to right, $black, 50%, $pink);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-  }
+h4 {
+  background: -webkit-linear-gradient($pink, 40%, $blue);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }

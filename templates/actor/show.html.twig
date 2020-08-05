@@ -3,9 +3,9 @@
 {% block title %}Actor{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1>Actor</h1>
-
-    <table class="table text-light">
+    <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -31,4 +31,5 @@
     <a href="{{ path('actor_edit', {'slug': actor.slug}) }}">edit</a>
 
     {{ include('actor/_delete_form.html.twig') }}
+</div>
 {% endblock %}

@@ -3,8 +3,16 @@
 {% block title %}Categories{% endblock %}
 
 {% block body %}
+<div class="container">
+    <div class="container d-flex justify-content-end">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('category_add') }}" class="btn text-pink mt-4 mb-4">Add Category</a>
+        {% endif %}
+    </div>
     {% for category in categories %}
     <div class="list-group">
-        <a href="/wild/category/{{ categoryName }}" class="list-group-item list-group-item-action active">{{ category.name }}</a>
+        <a href="/wild/category/{{ categoryName }}"
+           class="list-group-item list-group-item-action active my-2 bg-light text-dark border-0">{{ category.name }}</a>
     {% endfor %}
+</div>
 {% endblock %}
