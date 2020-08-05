@@ -12,12 +12,11 @@ use App\Services\MailServices;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Slugify;
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/program")
@@ -29,8 +28,14 @@ class ProgramController extends AbstractController
      * @param ProgramRepository $programRepository
      * @return Response
      */
-    public function index(ProgramRepository $programRepository): Response
+    public function index(SessionInterface $session, ProgramRepository $programRepository): Response
     {
+        if (!$session->has('total')) {
+            $session->set('total', 0); // if total doesn’t exist in session, it is initialized.
+        }
+
+        $total = $session->get('total'); // get actual value in session with ‘total' key.
+
         return $this->render('program/index.html.twig', [
             'programs' => $programRepository->findAll(),
         ]);
@@ -38,12 +43,6 @@ class ProgramController extends AbstractController
 
     /**
      * @Route("/new", name="program_new", methods={"GET","POST"})
-     * @param Request $request
-     * @param Slugify $slugify
-     * @param MailerInterface $mailer
-     * @param MailServices $mailServices
-     * @return Response
-     * @throws TransportExceptionInterface
      */
     public function new(Request $request, Slugify $slugify, MailerInterface $mailer): Response
     {
@@ -57,6 +56,8 @@ class ProgramController extends AbstractController
             $program->setSlug($slug);
             $entityManager->persist($program);
             $entityManager->flush();
+
+            $this->addFlash('success', 'The new program has been created');
 
             $mail = $this->getDoctrine()->getRepository(MailTemplate::class)->findOneBy(['id' => 2]);
             $programSlug = $program->getSlug();
@@ -101,6 +102,8 @@ class ProgramController extends AbstractController
             $program->setSlug($slug);
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'The program has been edited');
+
             return $this->redirectToRoute('program_index');
         }
 
@@ -119,6 +122,8 @@ class ProgramController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($program);
             $entityManager->flush();
+
+            $this->addFlash('danger', 'The program has been deleted');
         }
 
         return $this->redirectToRoute('program_index');
