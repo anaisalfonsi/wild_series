@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,10 +67,13 @@ class CommentController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
+        $episode = $comment->getEpisode();
+        $episodeSlug = $episode->getSlug();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('comment_index');
+            return new RedirectResponse('/wild/episode/' . $episodeSlug);
         }
 
         return $this->render('comment/edit.html.twig', [
@@ -83,12 +87,14 @@ class CommentController extends AbstractController
      */
     public function delete(Request $request, Comment $comment): Response
     {
+        $episode = $comment->getEpisode();
+        $episodeSlug = $episode->getSlug();
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($comment);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('comment_index');
+        return new RedirectResponse('/wild/episode/' . $episodeSlug);
     }
 }

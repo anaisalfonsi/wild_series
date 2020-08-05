@@ -3,10 +3,15 @@
 {% block title %}Add a Category{% endblock %}
 
 {% block body %}
-    <div class="text-white">
-        {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        <button class="btn" type="submit">Send</button>
-        {{ form_end(form) }}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <h1>Add a Category</h1>
+        </div>
+        <div class="container col-12 col-md-6 mt-5">
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            <button class="btn" type="submit">Add</button>
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}
