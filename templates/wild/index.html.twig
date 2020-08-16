@@ -11,10 +11,14 @@
                     <div class="card mb-3 mx-2">
                         <div class="card-body d-flex flex-column">
                             <img class="card-img-top" src="{{ program.poster }}">
-                            <h5 class="card-title mt-4 mb-1"> {{ program.title }} </h5>
-                            <p class="paragShop mb-2"> Category: {{ program.category.name }}</p>
-                            <p class="card-text mt-3 mb-4"> {{ program.summary }} </p>
-                            <a href="{{ path('wild_show', {'slug': program.slug}) }}" type="submit" name="" value="" class="btn mt-auto">See More</a>
+                            <h5 class="card-title mt-4 mb-1"> {{ program.title }}</h5>
+                            <p class="mb-2"> Category: {{ program.category.name }}</p>
+                            <p class="card-text mt-3 mb-4"> {{ program.summary }}</p>
+                            {% if app.user %}
+                            <i id="watchlist-{{ program.id }}" class="{{ app.user.isInWatchlist(program) ? 'fas' : 'far' }} fa-heart watchlist"
+                               data-href="{{path('wild_program_watchlist', {'id': program.id})}}"></i>
+                            {% endif %}
+                            <a href="{{ path('wild_show', {'slug': program.slug}) }}" type="submit" class="btn mt-auto">See More</a>
                         </div>
                     </div>
                 </div>
@@ -28,4 +32,28 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {% for program in programs %}
+    <script>
+        document.querySelectorAll("#watchlist-{{ program.id }}").forEach(function(link) {
+            link.addEventListener('click', addToWatchlist);
+        });
+        function addToWatchlist(event) {
+            event.preventDefault();
+            let watchlistIcon = event.target;
+            let link = watchlistIcon.dataset.href;
+            fetch(link)
+                .then(function (response) {
+                    if (watchlistIcon.classList.contains('far')) {
+                        watchlistIcon.classList.remove('far');
+                        watchlistIcon.classList.add('fas');
+                    } else {
+                        watchlistIcon.classList.remove('fas');
+                        watchlistIcon.classList.add('far');
+                    }
+                });
+            }
+    </script>
+    {% endfor %}
 {% endblock %}

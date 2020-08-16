@@ -7,6 +7,8 @@
             <h2 class="mt-4">{{ program.title }}</h2>
             <p>{{ program.summary }}</p>
             <p>Catégorie : {{ program.category.name }}</p>
+            <i id="watchlist" class="{{ app.user.isInWatchlist(program) ? 'fas' : 'far' }} fa-heart watchlist"
+               data-href="{{path('wild_program_watchlist', {'id': program.id})}}"></i>
             <p><a href="{{ path('wild_show_program', {'slug': program.slug}) }}">See Seasons</a></p>
         </div>
     </div>
@@ -23,4 +25,23 @@
     <a href="{{ path('wild_index') }}">
         Retour à l'accueil
     </a>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        document.querySelector("#watchlist").addEventListener('click', addToWatchlist);
+        function addToWatchlist(event) {
+            let watchlistIcon = event.target;
+            let link = watchlistIcon.dataset.href;
+            fetch(link)
+                .then(function(response) {
+                    if(watchlistIcon.classList.contains('far')) {
+                        watchlistIcon.classList.remove('far');
+                        watchlistIcon.classList.add('fas');
+                    } else {
+                        watchlistIcon.classList.remove('fas');
+                        watchlistIcon.classList.add('far');
+                    }
+                });
+        }
+    </script>
 {% endblock %}

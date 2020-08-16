@@ -2,6 +2,8 @@
 
 Welcome !
 
+Symfony Quest n°24: https://www.loom.com/share/41e1f15017034b1ba7219e6be1ba349c
+
 Symfony Quest n°23: https://www.loom.com/share/98bde9234cd045c19a487c52ec55b13b
 
 Symfony Quest n°22: https://www.loom.com/share/e54763f9ea224c1193bfb314c2dd9484

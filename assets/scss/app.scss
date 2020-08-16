@@ -14,26 +14,34 @@ $theme-colors: (
 );
 
 body {
+  background-color: $white;
+
+  h1, h2, h3 {
+    color: $black;
+  }
+
+  h4 {
+    background: -webkit-linear-gradient($pink, 40%, $blue);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
   .btn {
     color: $blue;
     border-color: $blue;
   }
 
-  a {
-    color: $black;
-  }
-  a:hover {
-    background: -webkit-linear-gradient($red, 80%, $pink);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-    text-decoration: none;
-  }
-
   a, li {
+    color: $black;
     font-size: 1.1em;
     letter-spacing: 0.8px;
+  }
+
+  a:hover, li:hover {
+    color: $fuschia;
+    text-decoration: none;
   }
 
   .navbar-brand {
@@ -49,15 +57,3 @@ body {
 }
 
 @import "~bootstrap/scss/bootstrap";
-
-body {
-  background-color: $white;
-}
-
-h4 {
-  background: -webkit-linear-gradient($pink, 40%, $blue);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}

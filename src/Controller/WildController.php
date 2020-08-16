@@ -6,15 +6,16 @@ use App\Entity\Actor;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Episode;
+use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
-use http\Env\Response;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Program;
 
 /**
  * @Route("/wild", name="wild_")
@@ -210,6 +211,24 @@ class WildController extends AbstractController
         return $this->render('wild/actor.html.twig', [
             'actor' => $actor,
             'programs' => $programs
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/watchlist", name="program_watchlist", methods={"GET","POST"})
+     */
+    public function addToWatchlist(Request $request, Program $program, EntityManagerInterface $em) : Response
+    {
+        if ($this->getUser()->getPrograms()->contains($program)) {
+            $this->getUser()->removeProgram($program);
+        }
+        else {
+            $this->getUser()->addProgram($program);
+        }
+        $em->flush();
+
+        return $this->json([
+            'isInWatchlist' => $this->getUser()->isInWatchlist($program)
         ]);
     }
 }
