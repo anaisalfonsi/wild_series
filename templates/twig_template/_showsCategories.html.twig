@@ -1,0 +1,5 @@
+{% for category in categories %}
+    <a class="dropdown-item" href="{{ path('wild_show_category', {slug: category.slug}) }}">
+        {{ category.name }}
+    </a>
+{% endfor %}

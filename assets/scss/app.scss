@@ -21,11 +21,7 @@ body {
   }
 
   h4 {
-    background: -webkit-linear-gradient($pink, 40%, $blue);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
+    color: $fuschia;
   }
 
   .btn {
@@ -45,7 +41,7 @@ body {
   }
 
   .navbar-brand {
-    background: linear-gradient(to right, $black, 60%, $pink);
+    background: linear-gradient(to right, $fuschia, 60%, $pink);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

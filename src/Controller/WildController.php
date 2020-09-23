@@ -53,27 +53,22 @@ class WildController extends AbstractController
     }
 
     /**
-     * @param string $categoryName
-     * @Route("/category/{categoryName<[a-z0-9-]+>}", defaults={"categoryName" = null}, name="show_category")
+     * @param string $slug
+     * @Route("/category/{slug<[a-z0-9-]+>}", methods={"GET"}, name="show_category")
      */
-    public function showByCategory(string $categoryName)
+    public function showByCategory(string $slug)
     {
-        if (!$categoryName) {
+        if (!$slug) {
             throw $this
                 ->createNotFoundException("No category has been sent.");
         }
 
-        $categoryName = preg_replace(
-            '/-/',
-            ' ', ucwords(trim(strip_tags($categoryName)), "-")
-        );
-
         $category = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->findOneBy(['name' => mb_strtolower($categoryName)]);
+            ->findOneBy(['slug' => mb_strtolower($slug)]);
         if (!$category) {
             throw $this->createNotFoundException(
-                "No category with '.$categoryName.' name, found in category's table."
+                "No category with '.$slug.' name, found in category's table."
             );
         }
         $id = $category->getId();
@@ -84,7 +79,7 @@ class WildController extends AbstractController
                 3);
 
         return $this->render('wild/category.html.twig', [
-            'category' => $categoryName,
+            'slug' => $slug,
             'programs' => $programs
         ]);
     }

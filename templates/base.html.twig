@@ -3,9 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}🍿 wILD SerIES{% endblock %}</title>
-            {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
-            <!-- Renders a link tag (if your module requires any CSS)-->
             <link rel="stylesheet" href="/build/app.css">
         <script src="https://use.fontawesome.com/620275a73c.js"></script>
         <script src="https://kit.fontawesome.com/12c728ad22.js" crossorigin="anonymous"></script>
@@ -14,7 +12,57 @@
             {% block stylesheets %}{% endblock %}
     </head>
     <header>
-    {% include 'navbar.html.twig' %}
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="{{ path('app_index') }}">Wild Series</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <li class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/wild/index">Shows</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/program" id="navbarDropdown"
+                               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/program">Programs</a>
+                                <a class="dropdown-item" href="/season">Seasons</a>
+                                <a class="dropdown-item" href="/episode">Episodes</a>
+                                <a class="dropdown-item" href="/actor">Actors</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/category/index">Categories</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/program" id="navbarDropdown"
+                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {{ render(controller(
+                                'App\\Controller\\TwigTemplateController::showsCategories',
+                                { 'max': 15 }
+                            )) }}
+                        </div>
+                    </li>
+                </ul>
+                {% if app.user %}
+                    <div class="mx-4"><a href="{{ path('profile') }}" class="text-dark">{{ app.user.firstname }}</a></div>
+                    <a href="{{ path('app_logout') }}" class="text-dark"> Sign Out</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="text-dark"> Sign In</a>
+                {% endif %}
+            </div>
+        </nav>
+        <div class="container">
+
+        </div>
     </header>
     {% for label, messages in app.flashes %}
         {% for message in messages %}
@@ -30,7 +78,6 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         {{ encore_entry_script_tags('app') }}
-        <!-- Renders app.js & a webpack runtime.js file-->
         <script src="/build/runtime.js"></script>
         <script src="/build/app.js"></script>
         {% block javascripts %}{% endblock %}

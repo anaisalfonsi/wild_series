@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Services\Slugify;
 
 /**
  * @Route("/category", name="category_")
@@ -40,7 +41,7 @@ class CategoryController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @IsGranted("ROLE_ADMIN")
      */
-    public function add(Request $request)
+    public function add(Request $request, Slugify $slugify)
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
@@ -48,8 +49,12 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $insert = $this->getDoctrine()->getManager();
+            $slug = $slugify->generate($category->getName());
+            $category->setSlug($slug);
             $insert->persist($category);
             $insert->flush();
+
+            $this->addFlash('success', 'The new category has been created');
 
             return $this->redirectToRoute('category_index');
         }
